@@ -4,6 +4,12 @@ alt="App icon">
 **Evil Spin** is a free, fun and open source App for spinning a wheel.
 It objectivly looks **very pretty**. 
 
+[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
+     alt="Get it on F-Droid"
+     height="80">](https://f-droid.org/packages/evil.spin/)
+
+Or download here: [Releases Section](https://github.com/EVE-146T/EVILSPIN/releases/latest).
+
 ## Features
 
 - Free and open source
