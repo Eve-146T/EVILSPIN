@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+        <TextView
+            android:id="@+id/titleLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Wheel Title"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <EditText
+            android:id="@+id/titleEditText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            app:layout_constraintTop_toBottomOf="@id/titleLabel"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp" />
+        <TextView
+            android:id="@+id/colorPaletteLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Color Palette"
+            app:layout_constraintTop_toBottomOf="@id/titleEditText"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="16dp" />
+
+        <Spinner
+            android:id="@+id/colorPaletteSpinner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/colorPaletteLabel"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp" />
+
+        <TextView
+            android:id="@+id/wheelSpeedLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Wheel Speed"
+            app:layout_constraintTop_toBottomOf="@id/colorPaletteSpinner"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="16dp" />
+
+        <SeekBar
+            android:id="@+id/wheelSpeedSeekBar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/wheelSpeedLabel"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp" />
+
+        <TextView
+            android:id="@+id/minWheelSpinLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Minimum Wheel Spin"
+            app:layout_constraintTop_toBottomOf="@id/wheelSpeedSeekBar"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="16dp" />
+
+        <SeekBar
+            android:id="@+id/minWheelSpinSeekBar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/minWheelSpinLabel"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp"
+            />
+
+        <TextView
+            android:id="@+id/backgroundLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            android:text="Background"
+            app:layout_constraintTop_toBottomOf="@id/minWheelSpinSeekBar"
+            android:layout_marginTop="16dp" />
+
+        <Spinner
+            android:id="@+id/backgroundSpinner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/backgroundLabel"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp" />
+        <Button
+            android:id="@+id/importButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Import"
+            android:textColor="#FFFFFF"
+            app:layout_constraintTop_toBottomOf="@id/backgroundSpinner"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/exportButton"
+            android:background="@drawable/normal_buttom"
+            style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+            app:backgroundTint="@null"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp" />
+
+        <Button
+            android:id="@+id/exportButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Export"
+            android:textColor="#FFFFFF"
+
+            app:layout_constraintTop_toBottomOf="@id/backgroundSpinner"
+            app:layout_constraintStart_toEndOf="@id/importButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:background="@drawable/normal_buttom"
+            style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+            app:backgroundTint="@null"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="8dp" />
+        <Button
+            android:id="@+id/resetWheelButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="RESET WHEEL"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/normal_buttom"
+            app:backgroundTint="@null"
+            app:layout_constraintTop_toBottomOf="@id/exportButton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/defaultGermanNamesButton"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp" />
+
+        <Button
+            android:id="@+id/defaultGermanNamesButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="EXAMPLE WHEEL"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/normal_buttom"
+            app:backgroundTint="@null"
+            app:layout_constraintTop_toBottomOf="@id/exportButton"
+            app:layout_constraintStart_toEndOf="@id/resetWheelButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="8dp" />
+
+        <Button
+            android:id="@+id/saveButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/green_butt"
+            app:backgroundTint="@null"
+            android:layout_marginEnd="8dp"
+            android:text="Save and Exit"
+            app:layout_constraintEnd_toStartOf="@id/cancelButton"
+
+            style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/defaultGermanNamesButton" />
+
+        <Button
+            android:id="@+id/cancelButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Cancel"
+            android:textColor="#FFFFFF"
+
+            app:layout_constraintTop_toBottomOf="@id/resetWheelButton"
+            app:layout_constraintStart_toEndOf="@id/saveButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:background="@drawable/red_butt"
+            style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+            app:backgroundTint="@null"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="8dp" />
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

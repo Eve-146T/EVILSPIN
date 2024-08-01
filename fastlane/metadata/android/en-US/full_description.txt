@@ -1,0 +1,9 @@
+<p><strong>Evil Spin</strong> is a free, secure and open source App for spinning a wheel.
+It objectively looks <strong>very pretty</strong>. </p>
+<h2 id="features">Features</h2>
+<p>There are tons of fun features to play around with! You can change the appearance of the wheel (2 color palettes are available as of 1.0.0), and adjust speed and minimum wheel spin! Clicking the animated spin button sets the wheel in motion!</p>
+<p>To first create a wheel, click the EditText at the bottom and enter your desired slice-text. Click add, and repeat the process until you&#39;re done! </p>
+<p>You can also import and export your wheel as a text file in the settings. There you can also change how the MainFragment looks, see the screenshots! </p>
+<p>To get an example wheel, just click the <em>Example Wheel</em> button in the settings, and then save!</p>
+<p>Have fun! But remember, gambling is evil 😈.</p>
+

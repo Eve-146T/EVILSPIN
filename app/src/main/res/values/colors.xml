@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="wheel_blue">#0070e1</color>
+    <color name="wheel_green">#009938</color>
+    <color name="wheel_yellow">#f9ae3d</color>
+    <color name="wheel_red">#e4002b</color>
+</resources>
