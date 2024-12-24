@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private ConstraintLayout mainLayout;
     private List<String> options = new ArrayList<>();
     private SharedPreferences sharedPreferences;
+    private boolean wheelIsSpinning = false;
 
     private static final int SETTINGS_REQUEST_CODE = 100;
 
@@ -127,7 +128,8 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Please add options before spinning", Toast.LENGTH_SHORT).show();
             return;
         }
-
+        if(wheelIsSpinning) return;
+        
         int minSpin = sharedPreferences.getInt("min_wheel_spin", 720);
         int maxSpin = minSpin + 1080;
         Random random = new Random();
@@ -151,10 +153,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onAnimationEnd(Animator animation) {
                 showResult(wheelView.getSelectedOption());
+                wheelIsSpinning = false;
             }
         });
 
         animator.start();
+        wheelIsSpinning = true;
     }
 
     private void showResult(String winner) {
