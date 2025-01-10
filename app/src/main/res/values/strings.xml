@@ -43,4 +43,10 @@
         libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
+    <string name="nav_open">Open</string>
+    <string name="nav_close">Close</string>
+    <string name="spin">Spin</string>
+    <string name="add_wheel">Add Wheel</string>
+    <string name="add">Add</string>
+    <string name="it_was_faked">it was faked...</string>
 </resources>

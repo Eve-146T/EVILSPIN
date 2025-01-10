@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/screen_red"
+    android:id="@+id/activity_main"
+    >
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/screen_red">
+
+            <EditText
+                android:id="@+id/titlebar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:fontFamily="monospace"
+                android:gravity="center"
+                android:hint="Wheel Title"
+                android:inputType="text"
+                android:minWidth="150dp"
+                android:minHeight="32dp"
+                android:padding="10dp"
+                android:text="Title"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                app:autoSizeMaxTextSize="30sp"
+                app:autoSizeMinTextSize="10sp"
+                app:autoSizeStepGranularity="1sp"
+                app:autoSizeTextType="uniform"
+                app:layout_constraintBottom_toTopOf="@id/spinButton"
+                app:layout_constraintEnd_toStartOf="@id/settingsButtonLayout"
+                app:layout_constraintStart_toEndOf="@id/wheelView"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <LinearLayout
+                android:id="@+id/settingsButtonLayout"
+                style="?android:attr/buttonBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="0dp"
+                android:gravity="end"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/addOptionButton">
+
+                <!-- Delete Button -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_delete"
+                    style="@style/SettingsButtonStyle"
+                    app:icon="@drawable/ic_delete" />
+
+                <!-- Save Button -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_save"
+                    style="@style/SettingsButtonStyle"
+                    app:icon="@drawable/ic_save" />
+
+                <!-- Add Wheel Button -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_add_wheel"
+                    style="@style/SettingsButtonStyle"
+                    app:icon="@drawable/ic_add_circle" />
+
+                <!-- Add Settings Button -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/settingsButton"
+                    app:icon="@drawable/bootleg_settings"
+                    style="@style/SettingsButtonStyle"
+                    />
+            </LinearLayout>
+
+            <evil.spin.WheelView
+                android:id="@+id/wheelView"
+                android:layout_width="370dp"
+                android:layout_height="370dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:minWidth="200dp"
+                android:minHeight="200dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/spinButton"
+                style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:background="@drawable/normal_buttom_pres"
+                android:text="@string/spin"
+                android:textColor="#FFFFFF"
+                app:backgroundTint="@null"
+                app:cornerRadius="8dp"
+                app:layout_constraintBottom_toTopOf="@+id/optionInput"
+                app:layout_constraintEnd_toEndOf="@id/optionInput"
+                app:layout_constraintStart_toEndOf="@id/wheelView"
+                app:layout_constraintTop_toTopOf="@id/wheelView" />
+
+            <EditText
+                android:id="@+id/optionInput"
+                android:layout_width="wrap_content"
+                android:minWidth="180dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:hint="@string/it_was_faked"
+                android:inputType="text"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/addOptionButton"
+                app:layout_constraintStart_toEndOf="@id/wheelView" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/addOptionButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/add"
+                android:textColor="#FFFFFF"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:background="@drawable/normal_buttom"
+                style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                app:backgroundTint="@null"
+                android:layout_margin="16dp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    <com.google.android.material.navigation.NavigationView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:id="@+id/navigationView"
+        app:menu="@menu/wheel_menu" />
+
+</androidx.drawerlayout.widget.DrawerLayout>

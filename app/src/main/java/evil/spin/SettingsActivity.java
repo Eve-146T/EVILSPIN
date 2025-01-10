@@ -20,7 +20,6 @@ import java.util.List;
 import java.util.Set;
 
 public class SettingsActivity extends AppCompatActivity {
-    private EditText titleEditText;
     private Spinner colorPaletteSpinner;
     private Spinner backgroundSpinner;
     private SeekBar wheelSpeedSeekBar;
@@ -43,7 +42,6 @@ public class SettingsActivity extends AppCompatActivity {
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-        titleEditText = findViewById(R.id.titleEditText);
         colorPaletteSpinner = findViewById(R.id.colorPaletteSpinner);
         backgroundSpinner = findViewById(R.id.backgroundSpinner);
         wheelSpeedSeekBar = findViewById(R.id.wheelSpeedSeekBar);
@@ -111,7 +109,6 @@ public class SettingsActivity extends AppCompatActivity {
         int wheelSpeed = sharedPreferences.getInt("wheel_speed", 3000);
         int minWheelSpin = sharedPreferences.getInt("min_wheel_spin", 720);
 
-        titleEditText.setText(title);
         colorPaletteSpinner.setSelection(colorPalette.equals("Pastel") ? 1 : 0);
         backgroundSpinner.setSelection(((ArrayAdapter<String>)backgroundSpinner.getAdapter()).getPosition(background));
         wheelSpeedSeekBar.setProgress(wheelSpeed);
@@ -120,7 +117,6 @@ public class SettingsActivity extends AppCompatActivity {
 
     private void saveSettings() {
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("wheel_title", titleEditText.getText().toString());
         editor.putString("color_palette", colorPaletteSpinner.getSelectedItem().toString());
         editor.putString("background", backgroundSpinner.getSelectedItem().toString());
         editor.putInt("wheel_speed", wheelSpeedSeekBar.getProgress());
