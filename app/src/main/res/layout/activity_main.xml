@@ -69,31 +69,12 @@
         style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/optionInput"
-        android:layout_marginBottom="16dp" />
-
-    <EditText
-        android:id="@+id/optionInput"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="it was faked..."
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/addOptionButton"
-        android:layout_margin="16dp" />
+        android:layout_marginBottom="64dp" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/addOptionButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Add"
-        android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:background="@drawable/normal_buttom"
-        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
-        app:backgroundTint="@null"
-        android:layout_margin="16dp" />
+
+
+
 
 
 

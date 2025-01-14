@@ -3,40 +3,34 @@ package evil.spin;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
-import androidx.appcompat.app.AppCompatActivity;
+
 import androidx.appcompat.app.AlertDialog;
-import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceManager;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
-import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
     private WheelView wheelView;
-    private Button spinButton;
-    private EditText optionInput;
-    private Button addOptionButton;
-    private Button settingsButton;
     private TextView titleBar;
-    private ConstraintLayout mainLayout;
-    private List<String> options = new ArrayList<>();
+    private Button spinButton;
+    private Button editButton;
     private SharedPreferences sharedPreferences;
+    private WheelData currentWheel;
     private boolean wheelIsSpinning = false;
-
-    private static final int SETTINGS_REQUEST_CODE = 100;
+    private long wheelId;
+    private ValueAnimator currentAnimator;
+    private boolean isActivityActive = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,160 +38,229 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        wheelId = getIntent().getLongExtra("wheel_id", -1);
 
-        wheelView = findViewById(R.id.wheelView);
-        spinButton = findViewById(R.id.spinButton);
-        optionInput = findViewById(R.id.optionInput);
-        addOptionButton = findViewById(R.id.addOptionButton);
-        settingsButton = findViewById(R.id.settingsButton);
-        titleBar = findViewById(R.id.titlebar);
-        mainLayout = findViewById(R.id.activity_main);
-
-        addOptionButton.setOnClickListener(v -> addOption());
-        spinButton.setOnClickListener(v -> spinWheel());
-        settingsButton.setOnClickListener(v -> openSettings());
-        RainbowBorderButtonDrawable rainbowDrawable = new RainbowBorderButtonDrawable(this);
-        spinButton.setBackground(rainbowDrawable);
-        loadOptions();
-        updateWheelAppearance();
-        updateTitle();
-        updateBackground();
-        checkAnimationsEnabled();
-
-    }
-    private void checkAnimationsEnabled() {
-        boolean animationsEnabled = Settings.Global.getFloat(getContentResolver(), Settings.Global.ANIMATOR_DURATION_SCALE, 1) != 0;
-        if (!animationsEnabled) {
-            new AlertDialog.Builder(this)
-                    .setTitle("Animation Disabled")
-                    .setMessage("Animations are currently turned off. Please enable them in the device settings for the wheel to animate.")
-                    .setPositiveButton("OK", null)
-                    .show();
+        initializeViews();
+        loadWheel();
+        if (wheelView != null && spinButton != null) {
+            setupClickListeners();
+            RainbowBorderButtonDrawable rainbowDrawable = new RainbowBorderButtonDrawable(this);
+            spinButton.setBackground(rainbowDrawable);
         }
+        checkAnimationsEnabled();
     }
+
     @Override
     protected void onResume() {
         super.onResume();
-        updateTitle();
-        updateBackground();
+        isActivityActive = true;
+        loadWheel();
     }
 
-    private void updateTitle() {
-        String title = sharedPreferences.getString("wheel_title", "Spin the Wheel");
-        titleBar.setText(title);
-    }
-
-    private void updateBackground() {
-        String background = sharedPreferences.getString("background", "red");
-        setBackgroundByName(background);
-    }
-    private void setBackgroundByName(String backgroundName) {
-        try {
-            String resourceName = "screen_" + backgroundName.toLowerCase();
-            int resourceId = getResources().getIdentifier(resourceName, "drawable", getPackageName());
-            if (resourceId != 0) {
-                mainLayout.setBackgroundResource(resourceId);
-            } else {
-                // Fallback to default background if the resource is not found
-                mainLayout.setBackgroundResource(R.drawable.screen_red);
-            }
-        } catch (Resources.NotFoundException e) {
-            // Fallback to default background if there's an error
-            mainLayout.setBackgroundResource(R.drawable.screen_red);
+    @Override
+    protected void onPause() {
+        super.onPause();
+        isActivityActive = false;
+        if (currentAnimator != null) {
+            currentAnimator.cancel();
         }
     }
 
-    private void addOption() {
-        String option = optionInput.getText().toString().trim();
-        if (!option.isEmpty()) {
-            options.add(option);
-            wheelView.setOptions(options);
-            optionInput.setText("");
-            saveOptions();
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (currentAnimator != null) {
+            currentAnimator.cancel();
+            currentAnimator = null;
         }
     }
-    private void clearEditTextFocus() {
-        optionInput.clearFocus();
-        // This will hide the soft keyboard if it's visible
-        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(optionInput.getWindowToken(), 0);
+
+    private void initializeViews() {
+        wheelView = findViewById(R.id.wheelView);
+        titleBar = findViewById(R.id.titlebar);
+        spinButton = findViewById(R.id.spinButton);
+        editButton = findViewById(R.id.settingsButton); // Using the settings button as edit
     }
-    private void spinWheel() {
-        clearEditTextFocus();
-        if (options.isEmpty()) {
-            Toast.makeText(this, "Please add options before spinning", Toast.LENGTH_SHORT).show();
+
+    private List<WheelData> loadWheels() {
+        String wheelsJson = sharedPreferences.getString("saved_wheels", "[]");
+        Type wheelListType = new TypeToken<ArrayList<WheelData>>(){}.getType();
+        List<WheelData> wheels = new Gson().fromJson(wheelsJson, wheelListType);
+        return wheels != null ? wheels : new ArrayList<>();
+    }
+
+    private void loadWheel() {
+        if (wheelId == -1) {
+            finish();
             return;
         }
-        if(wheelIsSpinning) return;
-        
-        int minSpin = sharedPreferences.getInt("min_wheel_spin", 720);
-        int maxSpin = minSpin + 1080;
+
+        List<WheelData> wheels = loadWheels();
+        for (WheelData wheel : wheels) {
+            if (wheel.getId() == wheelId) {
+                currentWheel = wheel;
+                break;
+            }
+        }
+
+        if (currentWheel == null) {
+            finish();
+            return;
+        }
+
+        updateWheelDisplay();
+    }
+
+    private void updateWheelDisplay() {
+        if (titleBar != null) {
+            titleBar.setText(currentWheel.getTitle());
+        }
+
+        if (wheelView != null) {
+            List<String> options = new ArrayList<>();
+            for (WheelData.SliceData slice : currentWheel.getSlices()) {
+                for (int i = 0; i < slice.getWeight(); i++) {
+                    options.add(slice.getName());
+                }
+            }
+            wheelView.setOptions(options);
+            wheelView.setColorPalette(currentWheel.getColorPalette());
+        }
+
+        setBackgroundByName(currentWheel.getBackground());
+    }
+
+    private void setupClickListeners() {
+        spinButton.setOnClickListener(v -> spinWheel());
+        if (editButton != null) {
+            editButton.setOnClickListener(v -> {
+                Intent intent = new Intent(this, WheelEditorActivity.class);
+                intent.putExtra("wheel_id", wheelId);
+                startActivityForResult(intent, 1);
+            });
+        }
+    }
+
+
+    private void spinWheel() {
+        if (wheelIsSpinning || currentWheel.getSlices().isEmpty()) {
+            return;
+        }
+
+        wheelIsSpinning = true;
         Random random = new Random();
-        float targetRotation = wheelView.getRotation() + random.nextInt(maxSpin - minSpin) + minSpin;
+        float targetRotation = wheelView.getRotation() +
+                random.nextInt(1080 - 720) + 3600;
 
-        int duration = sharedPreferences.getInt("wheel_speed", 5000); // Increased duration for a slower finish
-        ValueAnimator animator = ValueAnimator.ofFloat(wheelView.getRotation(), targetRotation);
-        animator.setDuration(duration);
+        if (currentAnimator != null) {
+            currentAnimator.cancel();
+        }
 
-        // Use a custom interpolator for fast start and gradual slowdown
-        animator.setInterpolator(input -> {
-            return (float) (1 - Math.pow(1 - input, 3)); // Ease-out cubic
+        currentAnimator = ValueAnimator.ofFloat(
+                wheelView.getRotation(),
+                targetRotation
+        );
+        currentAnimator.setDuration(5000);
+        currentAnimator.setInterpolator(input -> {
+            // Custom easing: fast start, slow end
+            return (float) (1 - Math.pow(1 - input, 3));
         });
 
-        animator.addUpdateListener(animation -> {
-            float value = (Float) animation.getAnimatedValue();
-            wheelView.setRotation(value);
+        currentAnimator.addUpdateListener(animation -> {
+            if (wheelView != null) {
+                float value = (Float) animation.getAnimatedValue();
+                wheelView.setRotation(value);
+            }
         });
 
-        animator.addListener(new AnimatorListenerAdapter() {
+        currentAnimator.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
-                showResult(wheelView.getSelectedOption());
+                wheelIsSpinning = false;
+                if (isActivityActive && wheelView != null) {
+                    showResult(wheelView.getSelectedOption());
+                }
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
                 wheelIsSpinning = false;
             }
         });
 
-        animator.start();
-        wheelIsSpinning = true;
+        currentAnimator.start();
     }
 
     private void showResult(String winner) {
-        new AlertDialog.Builder(this)
-                .setTitle("Result")
-                .setMessage("The wheel landed on: " + winner)
-                .setPositiveButton("OK", null)
-                .show();
-    }
+        if (!isActivityActive) return;
 
-    private void openSettings() {
-        clearEditTextFocus();
-        Intent intent = new Intent(this, SettingsActivity.class);
-        startActivityForResult(intent, SETTINGS_REQUEST_CODE);
+        try {
+            new AlertDialog.Builder(this)
+                    .setTitle("Result")
+                    .setMessage("The wheel landed on: " + winner)
+                    .setPositiveButton("OK", null)
+                    .show();
+        } catch (Exception e) {
+            // Handle any window attachment errors silently
+        }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == SETTINGS_REQUEST_CODE && resultCode == RESULT_OK) {
-            updateWheelAppearance();
-            loadOptions();
+        if (resultCode == RESULT_OK) {
+            loadWheel(); // Reload wheel data after editing
         }
     }
 
-    private void updateWheelAppearance() {
-        String colorPalette = sharedPreferences.getString("color_palette", "Default");
-        wheelView.setColorPalette(colorPalette);
+
+
+    private void checkAnimationsEnabled() {
+        boolean animationsEnabled = Settings.Global.getFloat(
+                getContentResolver(),
+                Settings.Global.ANIMATOR_DURATION_SCALE,
+                1
+        ) != 0;
+
+        if (!animationsEnabled) {
+            new AlertDialog.Builder(this)
+                    .setTitle("Animation Disabled")
+                    .setMessage("Please enable animations in device settings for the wheel to animate properly.")
+                    .setPositiveButton("OK", null)
+                    .show();
+        }
     }
 
-    private void saveOptions() {
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putStringSet("wheel_options", new HashSet<>(options));
-        editor.apply();
+    private void setBackgroundByName(String backgroundName) {
+        try {
+            String resourceName = "screen_" + backgroundName.toLowerCase();
+            int resourceId = getResources().getIdentifier(
+                    resourceName,
+                    "drawable",
+                    getPackageName()
+            );
+            if (resourceId != 0) {
+                findViewById(R.id.activity_main)
+                        .setBackgroundResource(resourceId);
+            } else {
+                findViewById(R.id.activity_main)
+                        .setBackgroundResource(R.drawable.screen_red);
+            }
+        } catch (Exception e) {
+            findViewById(R.id.activity_main)
+                    .setBackgroundResource(R.drawable.screen_red);
+        }
     }
 
-    private void loadOptions() {
-        Set<String> savedOptions = sharedPreferences.getStringSet("wheel_options", new HashSet<>());
-        options = new ArrayList<>(savedOptions);
-        wheelView.setOptions(options);
+
+
+    @Override
+    public void onBackPressed() {
+        // Return to welcome screen instead of exiting
+        super.onBackPressed();
+        Intent intent = new Intent(this, WelcomeActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        finish();
     }
 }

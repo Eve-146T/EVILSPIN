@@ -1,0 +1,22 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/sliceNameEdit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Slice Name"
+        android:inputType="text"/>
+
+    <EditText
+        android:id="@+id/sliceWeightEdit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Weight (1-100)"
+        android:inputType="number"/>
+
+</LinearLayout>

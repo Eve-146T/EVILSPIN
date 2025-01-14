@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="color_palettes">
+        <item>Default</item>
+        <item>Pastel</item>
+    </string-array>
+
+    <string-array name="backgrounds">
+        <item>red</item>
+        <item>orange</item>
+        <item>yellow</item>
+        <item>green</item>
+        <item>lime</item>
+        <item>turk</item>
+        <item>blue</item>
+        <item>indigo</item>
+        <item>purple</item>
+        <item>gray</item>
+    </string-array>
+</resources>

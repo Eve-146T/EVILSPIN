@@ -10,8 +10,8 @@ android {
         applicationId = "evil.spin"
         minSdk = 24
         targetSdk = 34
-        versionCode = 103
-        versionName = "1.0.3"
+        versionCode = 104
+        versionName = "1.0.4-BETA"
     }
 
     dependenciesInfo {
@@ -44,5 +44,7 @@ dependencies {
     implementation(libs.material)
     implementation(libs.constraintlayout)
     implementation(libs.preference)
+    implementation(libs.firebase.crashlytics.buildtools)
+    implementation(libs.gson)
 
 }
