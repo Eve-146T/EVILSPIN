@@ -1,46 +1,65 @@
 <resources>
     <string name="app_name">Evil Spin</string>
     <string name="action_settings">Settings</string>
-    <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
 
-    <string name="lorem_ipsum">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
-        volutpat, dolor id interdum ullamcorper, risus dolor egestas lectus, sit amet mattis purus
-        dui nec risus. Maecenas non sodales nisi, vel dictum dolor. Class aptent taciti sociosqu ad
-        litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse blandit eleifend
-        diam, vel rutrum tellus vulputate quis. Aliquam eget libero aliquet, imperdiet nisl a,
-        ornare ex. Sed rhoncus est ut libero porta lobortis. Fusce in dictum tellus.\n\n
-        Suspendisse interdum ornare ante. Aliquam nec cursus lorem. Morbi id magna felis. Vivamus
-        egestas, est a condimentum egestas, turpis nisl iaculis ipsum, in dictum tellus dolor sed
-        neque. Morbi tellus erat, dapibus ut sem a, iaculis tincidunt dui. Interdum et malesuada
-        fames ac ante ipsum primis in faucibus. Curabitur et eros porttitor, ultricies urna vitae,
-        molestie nibh. Phasellus at commodo eros, non aliquet metus. Sed maximus nisl nec dolor
-        bibendum, vel congue leo egestas.\n\n
-        Sed interdum tortor nibh, in sagittis risus mollis quis. Curabitur mi odio, condimentum sit
-        amet auctor at, mollis non turpis. Nullam pretium libero vestibulum, finibus orci vel,
-        molestie quam. Fusce blandit tincidunt nulla, quis sollicitudin libero facilisis et. Integer
-        interdum nunc ligula, et fermentum metus hendrerit id. Vestibulum lectus felis, dictum at
-        lacinia sit amet, tristique id quam. Cras eu consequat dui. Suspendisse sodales nunc ligula,
-        in lobortis sem porta sed. Integer id ultrices magna, in luctus elit. Sed a pellentesque
-        est.\n\n
-        Aenean nunc velit, lacinia sed dolor sed, ultrices viverra nulla. Etiam a venenatis nibh.
-        Morbi laoreet, tortor sed facilisis varius, nibh orci rhoncus nulla, id elementum leo dui
-        non lorem. Nam mollis ipsum quis auctor varius. Quisque elementum eu libero sed commodo. In
-        eros nisl, imperdiet vel imperdiet et, scelerisque a mauris. Pellentesque varius ex nunc,
-        quis imperdiet eros placerat ac. Duis finibus orci et est auctor tincidunt. Sed non viverra
-        ipsum. Nunc quis augue egestas, cursus lorem at, molestie sem. Morbi a consectetur ipsum, a
-        placerat diam. Etiam vulputate dignissim convallis. Integer faucibus mauris sit amet finibus
-        convallis.\n\n
-        Phasellus in aliquet mi. Pellentesque habitant morbi tristique senectus et netus et
-        malesuada fames ac turpis egestas. In volutpat arcu ut felis sagittis, in finibus massa
-        gravida. Pellentesque id tellus orci. Integer dictum, lorem sed efficitur ullamcorper,
-        libero justo consectetur ipsum, in mollis nisl ex sed nisl. Donec maximus ullamcorper
-        sodales. Praesent bibendum rhoncus tellus nec feugiat. In a ornare nulla. Donec rhoncus
-        libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus
-        vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
-    </string>
+    <string name="spin_button">Spin</string>
+    <string name="add_button">Add</string>
+    <string name="wheel_title_label">Wheel Title</string>
+    <string name="default_wheel_title">Spin the wheel</string>
+    <string name="color_palette_label">Color palette</string>
+    <string name="color_palette_default">Default</string>
+    <string name="color_palette_pastel">Pastel</string>
+    <string name="wheel_speed">Wheel Speed</string>
+    <string name="min_wheel_spin">Minimum Wheel Spin</string>
+    <string name="background_label">Background</string>
+    <string name="add_hint">it was faked…</string>
+
+    // Untranslated colors for setBackgroundByName
+    <string name="color_red_setting" translatable="false">red</string>
+    <string name="color_orange_setting" translatable="false">orange</string>
+    <string name="color_yellow_setting" translatable="false">yellow</string>
+    <string name="color_green_setting" translatable="false">green</string>
+    <string name="color_lime_setting" translatable="false">lime</string>
+    <string name="color_turk_setting" translatable="false">turk</string>
+    <string name="color_blue_setting" translatable="false">blue</string>
+    <string name="color_indigo_setting" translatable="false">indigo</string>
+    <string name="color_purple_setting" translatable="false">purple</string>
+    <string name="color_grey_setting" translatable="false">grey</string>
+    <string name="color_red">red</string>
+    <string name="color_orange">orange</string>
+    <string name="color_yellow">yellow</string>
+    <string name="color_green">green</string>
+    <string name="color_lime">lime</string>
+    <string name="color_turk">turk</string>
+    <string name="color_blue">blue</string>
+    <string name="color_indigo">indigo</string>
+    <string name="color_purple">purple</string>
+    <string name="color_grey">grey</string>
+
+    <string name="import_label">Import</string>
+    <string name="export_label">Export</string>
+    <string name="reset_wheel_label">RESET WHEEL</string>
+    <string name="example_wheel_label">EXAMPLE WHEEL</string>
+    <string name="example_name1">Teto</string>
+    <string name="example_name2">Miku</string>
+    <string name="example_name3">Gumi</string>
+    <string name="example_name4">Rin</string>
+    <string name="example_name5">Len</string>
+    <string name="example_name6">Fukase</string>
+    <string name="save_label">Save and exit</string>
+    <string name="cancel_label">Cancel</string>
+
+    <string name="result_title">Result</string>
+    <string name="result_text">The wheel landed on:</string>
+    <string name="result_ok">OK</string>
+
+    <string name="toast_reset">Wheel reset to empty</string>
+    <string name="toast_example">Example wheel has been set. Click save and exit.</string>
+    <string name="toast_empty_spin">Please add options before spinning</string>
+    <string name="toast_options_export">Options exported successfully</string>
+    <string name="toast_options_write_error">Error writing file</string>
+    <string name="toast_options_import">Options imported successfully</string>
+    <string name="toast_options_read_error">Error reading file</string>
+
+    <string name="options_button_content_description">Options</string>
 </resources>

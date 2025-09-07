@@ -26,10 +26,7 @@ import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
     private WheelView wheelView;
-    private Button spinButton;
     private EditText optionInput;
-    private Button addOptionButton;
-    private Button settingsButton;
     private TextView titleBar;
     private ConstraintLayout mainLayout;
     private List<String> options = new ArrayList<>();
@@ -47,10 +44,10 @@ public class MainActivity extends AppCompatActivity {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         wheelView = findViewById(R.id.wheelView);
-        spinButton = findViewById(R.id.spinButton);
+        Button spinButton = findViewById(R.id.spinButton);
         optionInput = findViewById(R.id.optionInput);
-        addOptionButton = findViewById(R.id.addOptionButton);
-        settingsButton = findViewById(R.id.settingsButton);
+        Button addOptionButton = findViewById(R.id.addOptionButton);
+        Button settingsButton = findViewById(R.id.settingsButton);
         titleBar = findViewById(R.id.titlebar);
         mainLayout = findViewById(R.id.activity_main);
 
@@ -84,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updateTitle() {
-        String title = sharedPreferences.getString("wheel_title", "Spin the Wheel");
+        String title = sharedPreferences.getString("wheel_title", getString(R.string.default_wheel_title));
         titleBar.setText(title);
     }
 
@@ -126,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
     private void spinWheel() {
         clearEditTextFocus();
         if (options.isEmpty()) {
-            Toast.makeText(this, "Please add options before spinning", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.toast_empty_spin), Toast.LENGTH_SHORT).show();
             return;
         }
         if(wheelIsSpinning) return;
@@ -163,9 +160,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void showResult(String winner) {
         new AlertDialog.Builder(this)
-                .setTitle("Result")
-                .setMessage("The wheel landed on: " + winner)
-                .setPositiveButton("OK", null)
+                .setTitle(getString(R.string.result_title))
+                .setMessage("\n" +
+                        getString(R.string.result_text) +
+                        " " + winner)
+                .setPositiveButton(getString(R.string.result_ok), null)
                 .show();
     }
 

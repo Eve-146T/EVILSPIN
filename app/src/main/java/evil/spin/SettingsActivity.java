@@ -36,6 +36,8 @@ public class SettingsActivity extends AppCompatActivity {
     private static final int READ_REQUEST_CODE = 42;
     private static final int WRITE_REQUEST_CODE = 43;
 
+    private List<String> backgrounds_eng_names;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,13 +65,41 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     private void setupColorPaletteSpinner() {
-        List<String> colorPalettes = Arrays.asList("Default", "Pastel");
+        List<String> colorPalettes = Arrays.asList(
+                getString(R.string.color_palette_default),
+                getString(R.string.color_palette_pastel));
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, colorPalettes);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         colorPaletteSpinner.setAdapter(adapter);
     }
     private void setupBackgroundSpinner() {
-        List<String> backgrounds = Arrays.asList("red", "orange", "yellow", "green", "lime", "turk", "blue", "indigo", "purple", "gray");
+        // Untranslated colors for setBackgroundByName
+        backgrounds_eng_names = Arrays.asList(
+                getString(R.string.color_red_setting),
+                getString(R.string.color_orange_setting),
+                getString(R.string.color_yellow_setting),
+                getString(R.string.color_green_setting),
+                getString(R.string.color_lime_setting),
+                getString(R.string.color_turk_setting),
+                getString(R.string.color_blue_setting),
+                getString(R.string.color_indigo_setting),
+                getString(R.string.color_purple_setting),
+                getString(R.string.color_grey_setting)
+        );
+
+        // Translated colors for user preferences
+        List<String> backgrounds = Arrays.asList(
+                getString(R.string.color_red),
+                getString(R.string.color_orange),
+                getString(R.string.color_yellow),
+                getString(R.string.color_green),
+                getString(R.string.color_lime),
+                getString(R.string.color_turk),
+                getString(R.string.color_blue),
+                getString(R.string.color_indigo),
+                getString(R.string.color_purple),
+                getString(R.string.color_grey)
+            );
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, backgrounds);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         backgroundSpinner.setAdapter(adapter);
@@ -91,21 +121,26 @@ public class SettingsActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putStringSet("wheel_options", new HashSet<>());
         editor.apply();
-        Toast.makeText(this, "Wheel reset to empty", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, getString(R.string.toast_reset), Toast.LENGTH_SHORT).show();
     }
 
     private void setMIGUUU() {
         Set<String> defaultNames = new HashSet<>(Arrays.asList(
-                "Teto", "Miku", "Gumi", "Rin", "Len", "Fukase"
+                getString(R.string.example_name1),
+                getString(R.string.example_name2),
+                getString(R.string.example_name3),
+                getString(R.string.example_name4),
+                getString(R.string.example_name5),
+                getString(R.string.example_name6)
         ));
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putStringSet("wheel_options", defaultNames);
         editor.apply();
-        Toast.makeText(this, "Example wheel has been set. Click save and exit.", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, getString(R.string.toast_example), Toast.LENGTH_SHORT).show();
     }
 
     private void loadSettings() {
-        String title = sharedPreferences.getString("wheel_title", "Spin the Wheel");
+        String title = sharedPreferences.getString("wheel_title", getString(R.string.default_wheel_title));
         String colorPalette = sharedPreferences.getString("color_palette", "Default");
         String background = sharedPreferences.getString("background", "red");
         int wheelSpeed = sharedPreferences.getInt("wheel_speed", 3000);
@@ -122,7 +157,8 @@ public class SettingsActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("wheel_title", titleEditText.getText().toString());
         editor.putString("color_palette", colorPaletteSpinner.getSelectedItem().toString());
-        editor.putString("background", backgroundSpinner.getSelectedItem().toString());
+//        editor.putString("background", backgroundSpinner.getSelectedItem().toString());
+        editor.putString("background", backgrounds_eng_names.get(backgroundSpinner.getSelectedItemPosition()));
         editor.putInt("wheel_speed", wheelSpeedSeekBar.getProgress());
         editor.putInt("min_wheel_spin", minWheelSpinSeekBar.getProgress());
         editor.apply();
@@ -167,9 +203,9 @@ public class SettingsActivity extends AppCompatActivity {
                 options.add(line.trim());
             }
             saveOptionsToPreferences(options);
-            Toast.makeText(this, "Options imported successfully", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.toast_options_import), Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
-            Toast.makeText(this, "Error reading file", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.toast_options_read_error), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -181,9 +217,9 @@ public class SettingsActivity extends AppCompatActivity {
                 writer.write(option);
                 writer.newLine();
             }
-            Toast.makeText(this, "Options exported successfully", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.toast_options_export), Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
-            Toast.makeText(this, "Error writing file", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.toast_options_write_error), Toast.LENGTH_SHORT).show();
         }
     }
 

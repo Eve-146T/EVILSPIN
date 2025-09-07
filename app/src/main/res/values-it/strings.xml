@@ -1,0 +1,54 @@
+<resources>
+    <string name="app_name">Ruota malefica</string>
+    <string name="action_settings">Impostazioni</string>
+
+    <string name="spin_button">Gira</string>
+    <string name="add_button">Aggiungi</string>
+    <string name="wheel_title_label">Titolo della ruota</string>
+    <string name="default_wheel_title">Gira la ruota</string>
+    <string name="color_palette_label">Tavolozza colori</string>
+    <string name="color_palette_default">Predefinita</string>
+    <string name="color_palette_pastel">Pastello</string>
+    <string name="wheel_speed">Velocità della ruota</string>
+    <string name="min_wheel_spin">Giri minimi della ruota</string>
+    <string name="background_label">Sfondo</string>
+    <string name="add_hint">era per finta…</string>
+
+    <string name="color_red">rosso</string>
+    <string name="color_orange">arancio</string>
+    <string name="color_yellow">giallo</string>
+    <string name="color_green">verde</string>
+    <string name="color_lime">lime</string>
+    <string name="color_turk">turchese</string>
+    <string name="color_blue">blu</string>
+    <string name="color_indigo">indaco</string>
+    <string name="color_purple">viola</string>
+    <string name="color_grey">grigio</string>
+
+    <string name="import_label">Importa</string>
+    <string name="export_label">Esporta</string>
+    <string name="reset_wheel_label">Reimposta ruota</string>
+    <string name="example_wheel_label">Ruota di esempio</string>
+    <string name="example_name1">Valentina</string>
+    <string name="example_name2">Maurizio</string>
+    <string name="example_name3">Dora</string>
+    <string name="example_name4">Stefano</string>
+    <string name="example_name5">Silvia</string>
+    <string name="example_name6">Sonia</string>
+    <string name="save_label">Salva ed esci</string>
+    <string name="cancel_label">Cancella</string>
+
+    <string name="result_title">Risultato</string>
+    <string name="result_text">La ruota si è fermata su:</string>
+    <string name="result_ok">OK</string>
+
+    <string name="toast_reset">Ruota svuotata</string>
+    <string name="toast_example">Ruota di esempio impostata. Tocca il pulsante \"salva ed esci\".</string>
+    <string name="toast_empty_spin">Prego aggiungere le opzioni prima di girare</string>
+    <string name="toast_options_export">Opzioni esportate con successo</string>
+    <string name="toast_options_write_error">Errore durante la scrittura del file</string>
+    <string name="toast_options_import">Opzioni importate con successo</string>
+    <string name="toast_options_read_error">Errore durante la lettura del file</string>
+
+    <string name="options_button_content_description">Opzioni</string>
+</resources>

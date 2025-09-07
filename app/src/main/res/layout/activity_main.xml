@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/screen_red"
@@ -15,7 +16,6 @@
         android:fontFamily="monospace"
         android:gravity="center"
         android:padding="10dp"
-        android:text="Title"
         android:textColor="#FFFFFF"
         android:textStyle="bold"
         app:autoSizeMaxTextSize="30sp"
@@ -34,7 +34,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:padding="0dp"
-        android:contentDescription="no"
+        android:contentDescription="@string/options_button_content_description"
         app:icon="@drawable/bootleg_settings"
         app:iconGravity="textStart"
         app:iconPadding="0dp"
@@ -59,41 +59,43 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/spinButton"
+        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Spin"
+        android:layout_marginBottom="16dp"
         android:background="@drawable/normal_buttom_pres"
+        android:text="@string/spin_button"
+        android:textColor="#FFFFFF"
         app:backgroundTint="@null"
         app:cornerRadius="8dp"
-        android:textColor="#FFFFFF"
-        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/optionInput"
-        android:layout_marginBottom="16dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/optionInput"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="it was faked..."
+        android:layout_margin="16dp"
+        android:hint="@string/add_hint"
+        android:inputType="text"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/addOptionButton"
-        android:layout_margin="16dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="Autofill" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/addOptionButton"
+        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add"
-        android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="16dp"
         android:background="@drawable/normal_buttom"
-        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+        android:text="@string/add_button"
+        android:textColor="#FFFFFF"
         app:backgroundTint="@null"
-        android:layout_margin="16dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 
 
